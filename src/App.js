@@ -23,13 +23,11 @@ class App extends Component {
     })
   }
 
-  removeLabel = (label) => {
+  removeLabel = (input) => {
     this.setState({
       messages: this.state.messages.map((message) => {
         if (message.selected) {
-          if (message.labels.includes(label)) {
-            [ label, ...message.labels ] = message.labels
-          }
+          message.labels = message.labels.filter((label) => label !== input)
         }
         return message
       })

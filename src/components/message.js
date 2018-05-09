@@ -45,6 +45,31 @@ class Message extends Component {
     this.props.star(this.convertStateToMessage(newState))
   }
 
+  existLabel = (label) => {
+    return this.state.labels.includes(label)
+  }
+
+  getDevLabel = () => {
+    if (this.existLabel('dev')) {
+      return <span className="label label-warning">dev</span>
+    }
+    return ''
+  }
+
+  getPersonalLabel = () => {
+    if (this.existLabel('personal')) {
+      return <span className="label label-warning">personal</span>
+    }
+    return ''
+  }
+
+  getGSchoolLabel = () => {
+    if (this.existLabel('gschool')) {
+      return <span className="label label-warning">gschool</span>
+    }
+    return ''
+  }
+
   render() {
     return (
       <div className="row message">
@@ -59,6 +84,9 @@ class Message extends Component {
           </div>
         </div>
         <div className="col-xs-11 text-left">
+          { this.getDevLabel() }
+          { this.getPersonalLabel() }
+          { this.getGSchoolLabel() }
           <a >
             {this.state.subject}
           </a>
