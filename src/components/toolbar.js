@@ -10,21 +10,21 @@ import React, { Component } from 'react'
 class Toolbar extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
     this.state = {
       apply: '',
       remove: '',
-      messageSelected: props.messageSelected,
-      unreadMessage: props.unreadMessage
+      messages: props.messages
     }
   }
 
   // this is called when property changes
   componentWillReceiveProps(newProps){
+
     this.setState({
       ...this.state,
-      messageSelected: newProps.messageSelected,
-      unreadMessage: newProps.unreadMessage })
+      messages: newProps.messages,
+      messageSelected: newProps.messages.filter((message) => message.selected).length > 0
+    })
   }
 
   onApplyLabel = (event) => {
@@ -60,27 +60,40 @@ class Toolbar extends Component {
     this.props.markMessageAsUnread()
   }
 
+  getMessageCount = () => {
+    return this.state.messages.length
+  }
+
+  getUnreadMessageCount = () => {
+    return this.state.messages.filter((message) => !message.read).length
+  }
+
+  getSelectedMessageCount = () => {
+    return this.state.messages.filter((message) => message.selected).length
+  }
+
   render() {
+    const disabledAttribute = (this.getMessageCount() <= 0)
     return (
       <div className="row toolbar">
         <div className="col-md-11">
           <p className="pull-right">
-            <span className="badge badge">{ this.state.unreadMessage }</span>
-            { this.state.unreadMessage < 1 ? 'unread message' : 'unread messages' }
+            <span className="badge badge">{ this.getUnreadMessageCount() }</span>
+            { this.getUnreadMessageCount() < 1 ? 'unread message' : 'unread messages' }
           </p>
 
-          <button className="btn btn-default" onClick={ this.onMessageSelected }>
+          <button className="btn btn-default" onClick={ this.onMessageSelected } disabled={ disabledAttribute }>
             { this.state.messageSelected ? <i className="fa fa-check-square-o"></i> : <i className="far fa-square"></i> }
           </button>
-          <button className="btn btn-default" onClick={ this.onMarkMessageAsRead }>
+          <button className="btn btn-default" onClick={ this.onMarkMessageAsRead } disabled={ disabledAttribute }>
             Mark as Read
           </button>
-          <button className="btn btn-default" onClick={ this.onMarkMessageAsUnread }>
+          <button className="btn btn-default" onClick={ this.onMarkMessageAsUnread } disabled={ disabledAttribute }>
             Mark as Unread
           </button>
 
           <select className="form-control label-select"
-            onChange={ this.onApplyLabel } value={ this.state.apply }>
+            onChange={ this.onApplyLabel } value={ this.state.apply } disabled={ disabledAttribute }>
             <option>Apply label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>
@@ -88,14 +101,14 @@ class Toolbar extends Component {
           </select>
 
           <select className="form-control label-select"
-            onChange={ this.onRemoveLabel } value={ this.state.remove }>
+            onChange={ this.onRemoveLabel } value={ this.state.remove } disabled={ disabledAttribute }>
             <option>Remove label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>
             <option value="gschool">gschool</option>
           </select>
 
-          <button className="btn btn-default" onClick={ this.onMessageDelete }>
+          <button className="btn btn-default" onClick={ this.onMessageDelete } disabled={ disabledAttribute }>
             <i className="fa fa-trash-o"></i>
           </button>
 

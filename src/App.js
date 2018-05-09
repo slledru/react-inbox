@@ -100,8 +100,7 @@ class App extends Component {
     return (
       <div className="App">
         <Toolbar
-          unreadMessage={ this.state.messages.filter((message) => !message.read).length }
-          messageSelected={ this.state.messages.filter((message) => message.selected).length > 0 }
+          messages={ this.state.messages }
           applyLabel={ this.applyLabel }
           removeLabel={ this.removeLabel }
           selectAllMessage={ this.selectAllMessage }
