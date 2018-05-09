@@ -47,7 +47,7 @@ class Toolbar extends Component {
 
   onMessageDelete = (event) => {
     event.preventDefault()
-
+    this.props.deleteMessage()
   }
 
   onMarkMessageAsRead = (event) => {

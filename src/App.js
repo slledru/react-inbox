@@ -69,12 +69,7 @@ class App extends Component {
   deleteMessage = () => {
     console.log('Delete Selected Messages')
     this.setState({
-      messages: this.state.messages.map((message) => {
-        if (message.selected) {
-
-        }
-        return message
-      })
+      messages: this.state.messages.filter((message) => !message.selected)
     })
   }
 
