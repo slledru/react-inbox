@@ -48,30 +48,22 @@ class App extends Component {
     })
   }
 
+  markMessages = (read) => {
+    return this.state.messages
+      .map((message) => {
+        if (message.selected) {
+          message.read = read
+        }
+        return message
+      })
+  }
+
   markMessageAsRead = () => {
-    console.log('Mark Selected Messages Read')
-    this.setState({
-      messages: this.state.messages
-        .map((message) => {
-          if (message.selected) {
-            message.read = true
-          }
-          return message
-        })
-    })
+    this.setState({ messages: this.markMessages(true) })
   }
 
   markMessageAsUnread = () => {
-    console.log('Mark Selected Messages Unread')
-    this.setState({
-      messages: this.state.messages
-        .map((message) => {
-          if (message.selected) {
-            message.read = false
-          }
-          return message
-        })
-    })
+    this.setState({ messages: this.markMessages(false) })
   }
 
   deleteMessage = () => {
@@ -87,7 +79,6 @@ class App extends Component {
   }
 
   select = (updated) => {
-    console.log('select', updated)
     this.setState({
       messages: this.state.messages.map((message) => {
         if (message.id === updated.id) {
@@ -98,13 +89,19 @@ class App extends Component {
     })
   }
 
-  star = (message) => {
-    console.log('star', message)
+  star = (updated) => {
+    this.setState({
+      messages: this.state.messages.map((message) => {
+        if (message.id === updated.id) {
+          message.starred = updated.starred
+        }
+        return message
+      })
+    })
   }
 
   render() {
     console.log('App:render', this.state.messages)
-    console.log('App:render - unread: ', this.state.messages.filter((message) => !message.read).length )
     return (
       <div className="App">
         <Toolbar
