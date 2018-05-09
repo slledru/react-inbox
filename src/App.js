@@ -34,6 +34,14 @@ class App extends Component {
     console.log('Delete Selected Messages')
   }
 
+  select = (message) => {
+    console.log('select', message)
+  }
+
+  star = (message) => {
+    console.log('star', message)
+  }
+
   render() {
     return (
       <div className="App">
@@ -45,7 +53,10 @@ class App extends Component {
           markMessageAsRead = { this.markMessageAsRead }
           markMessageAsUnread = { this.markMessageAsUnread }
         />
-      <MessageList messages={ this.state.messages }/>
+        <MessageList messages={ this.state.messages }
+          select={ this.select }
+          star={ this.star }
+        />
       </div>
     )
   }

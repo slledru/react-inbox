@@ -14,11 +14,21 @@ class MessageList extends Component {
     this.state = { messages: props.messages }
   }
 
+  renderMessage(message) {
+    return (
+      <Message key={ message.id }
+        message={ message }
+        select={ this.props.select }
+        star={ this.props.star }/>
+    )
+  }
+
   render() {
+    console.log(this.state.messages)
     return (
       <div className="row">
-        <div className="col-md-12">
-          { this.state.messages.map((message) => <Message key={ message.id } message={ message }/>)}
+        <div className="col-md-10">
+          { this.state.messages.map((message) => this.renderMessage(message))}
         </div>
       </div>
     )

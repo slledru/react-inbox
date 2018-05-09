@@ -17,7 +17,7 @@ const messages = [
     subject: "connecting the system won't do anything, we need to input the mobile AI panel!",
     read: false,
     starred: false,
-    "selected": true,
+    selected: true,
     labels: []
   },
   {
@@ -32,7 +32,7 @@ const messages = [
     subject: "We need to program the primary TCP hard drive!",
     read: true,
     starred: false,
-    "selected": true,
+    selected: true,
     labels: []
   },
   {

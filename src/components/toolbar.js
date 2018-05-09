@@ -37,14 +37,17 @@ class Toolbar extends Component {
   }
 
   onMessageDelete = (event) => {
+    event.preventDefault()
 
   }
 
   onMarkMessageAsRead = (event) => {
+    event.preventDefault()
 
   }
 
   onMarkMessageAsUnread = (event) => {
+    event.preventDefault()
 
   }
 
