@@ -10,16 +10,13 @@ class App extends Component {
     this.state = { messages: props.messages }
   }
 
-  getSelected = () => {
-    return this.state.messages.filter((message) => message.selected)
-  }
-
   applyLabel = (label) => {
-    console.log('App.applyLabel', label)
     this.setState({
       messages: this.state.messages.map((message) => {
         if (message.selected) {
-
+          if (!message.labels.includes(label)) {
+            message.labels = [ ...message.labels, label ]
+          }
         }
         return message
       })
@@ -27,11 +24,12 @@ class App extends Component {
   }
 
   removeLabel = (label) => {
-    console.log('App.removeLabel', label)
     this.setState({
       messages: this.state.messages.map((message) => {
         if (message.selected) {
-
+          if (message.labels.includes(label)) {
+            [ label, ...message.labels ] = message.labels
+          }
         }
         return message
       })
@@ -67,7 +65,6 @@ class App extends Component {
   }
 
   deleteMessage = () => {
-    console.log('Delete Selected Messages')
     this.setState({
       messages: this.state.messages.filter((message) => !message.selected)
     })
