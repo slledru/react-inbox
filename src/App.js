@@ -13,12 +13,17 @@ class App extends Component {
     console.log('App.removeLabel', label)
   }
 
+  selectMessage = (selected) => {
+    console.log('Message selected', selected)
+  }
+
   render() {
     return (
       <div className="App">
         <Toolbar
           applyLabel={ this.applyLabel }
           removeLabel={ this.removeLabel }
+          selectMessage={ this.selectMessage }
         />
         <MessageList />
       </div>
