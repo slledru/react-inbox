@@ -33,7 +33,7 @@ class Toolbar extends Component {
   onMessageSelected = (event) => {
     event.preventDefault()
     this.setState({ ...this.state, messageSelected: !this.state.messageSelected })
-    this.props.selectMessage(!this.state.messageSelected)
+    this.props.selectAllMessage(!this.state.messageSelected)
   }
 
   onMessageDelete = (event) => {

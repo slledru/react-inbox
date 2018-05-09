@@ -26,6 +26,7 @@ class Message extends Component {
   }
 
   onSelectedChanged = (event) => {
+    console.log('onSelectedChanged')
     event.preventDefault()
     const newState = { ...this.state, selected: !this.state.selected }
     this.setState(newState)
@@ -33,6 +34,7 @@ class Message extends Component {
   }
 
   onStarClicked = (event) => {
+    console.log('onStarClicked')
     event.preventDefault()
     const newState = { ...this.state, starred: !this.state.starred }
     this.setState(newState)
@@ -40,6 +42,7 @@ class Message extends Component {
   }
 
   render() {
+    console.log('Message:render', this.state)
     return (
       <div className="row message">
         <div className="col-xs-1">
@@ -53,7 +56,7 @@ class Message extends Component {
           </div>
         </div>
         <div className="col-xs-11 text-left">
-          <a href="#">
+          <a >
             {this.state.subject}
           </a>
         </div>

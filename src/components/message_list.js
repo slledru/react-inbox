@@ -24,7 +24,7 @@ class MessageList extends Component {
   }
 
   render() {
-    console.log(this.state.messages)
+    console.log('MessageList:render', this.state.messages)
     return (
       <div className="row">
         <div className="col-md-10">
