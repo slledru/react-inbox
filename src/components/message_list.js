@@ -14,6 +14,11 @@ class MessageList extends Component {
     this.state = { messages: props.messages }
   }
 
+  // this is called when property changes
+  componentWillReceiveProps(newProps){
+    this.setState({ messages: newProps.messages })
+  }
+
   renderMessage(message) {
     return (
       <Message key={ message.id }

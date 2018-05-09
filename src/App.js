@@ -39,12 +39,10 @@ class App extends Component {
   }
 
   selectAllMessage = (selected) => {
-    console.log('All Message selected', selected)
     const newMessages = this.state.messages.map((message) => {
       message.selected = selected
       return message
     })
-    console.log('All Message selected', newMessages)
     this.setState({
       messages: newMessages
     })
@@ -53,24 +51,26 @@ class App extends Component {
   markMessageAsRead = () => {
     console.log('Mark Selected Messages Read')
     this.setState({
-      messages: this.state.messages.map((message) => {
-        if (message.selected) {
-
-        }
-        return message
-      })
+      messages: this.state.messages
+        .map((message) => {
+          if (message.selected) {
+            message.read = true
+          }
+          return message
+        })
     })
   }
 
   markMessageAsUnread = () => {
     console.log('Mark Selected Messages Unread')
     this.setState({
-      messages: this.state.messages.map((message) => {
-        if (message.selected) {
-
-        }
-        return message
-      })
+      messages: this.state.messages
+        .map((message) => {
+          if (message.selected) {
+            message.read = false
+          }
+          return message
+        })
     })
   }
 
@@ -86,8 +86,16 @@ class App extends Component {
     })
   }
 
-  select = (message) => {
-    console.log('select', message)
+  select = (updated) => {
+    console.log('select', updated)
+    this.setState({
+      messages: this.state.messages.map((message) => {
+        if (message.id === updated.id) {
+          message.selected = updated.selected
+        }
+        return message
+      })
+    })
   }
 
   star = (message) => {
@@ -95,10 +103,13 @@ class App extends Component {
   }
 
   render() {
-    console.log('App:render')
+    console.log('App:render', this.state.messages)
+    console.log('App:render - unread: ', this.state.messages.filter((message) => !message.read).length )
     return (
       <div className="App">
         <Toolbar
+          unreadMessage={ this.state.messages.filter((message) => !message.read).length }
+          messageSelected={ this.state.messages.filter((message) => message.selected).length > 0 }
           applyLabel={ this.applyLabel }
           removeLabel={ this.removeLabel }
           selectAllMessage={ this.selectAllMessage }

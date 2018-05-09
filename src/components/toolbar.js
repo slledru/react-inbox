@@ -14,8 +14,17 @@ class Toolbar extends Component {
     this.state = {
       apply: '',
       remove: '',
-      messageSelected: false
+      messageSelected: props.messageSelected,
+      unreadMessage: props.unreadMessage
     }
+  }
+
+  // this is called when property changes
+  componentWillReceiveProps(newProps){
+    this.setState({
+      ...this.state,
+      messageSelected: newProps.messageSelected,
+      unreadMessage: newProps.unreadMessage })
   }
 
   onApplyLabel = (event) => {
@@ -43,12 +52,12 @@ class Toolbar extends Component {
 
   onMarkMessageAsRead = (event) => {
     event.preventDefault()
-
+    this.props.markMessageAsRead()
   }
 
   onMarkMessageAsUnread = (event) => {
     event.preventDefault()
-
+    this.props.markMessageAsUnread()
   }
 
   render() {
@@ -56,8 +65,8 @@ class Toolbar extends Component {
       <div className="row toolbar">
         <div className="col-md-11">
           <p className="pull-right">
-            <span className="badge badge">2</span>
-            unread messages
+            <span className="badge badge">{ this.state.unreadMessage }</span>
+            { this.state.unreadMessage < 1 ? 'unread message' : 'unread messages' }
           </p>
 
           <button className="btn btn-default" onClick={ this.onMessageSelected }>
