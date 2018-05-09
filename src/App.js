@@ -91,7 +91,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('App:render', this.state.messages)
     return (
       <div className="App">
         <Toolbar

@@ -13,7 +13,8 @@ class Toolbar extends Component {
     this.state = {
       apply: '',
       remove: '',
-      messages: props.messages
+      messages: props.messages,
+      messageSelected: props.messages.filter((message) => message.selected).length > 0
     }
   }
 
