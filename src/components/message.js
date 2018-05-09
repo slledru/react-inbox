@@ -71,8 +71,18 @@ class Message extends Component {
   }
 
   render() {
+    let rowStyle = "row message"
+    if (this.state.selected) {
+      rowStyle += " selected"
+    }
+    if (this.state.read) {
+      rowStyle += " read"
+    }
+    else {
+      rowStyle += " unread"
+    }
     return (
-      <div className="row message">
+      <div className={ rowStyle }>
         <div className="col-xs-1">
           <div className="row">
             <div className="col-xs-2" onClick={ this.onSelectedChanged }>
