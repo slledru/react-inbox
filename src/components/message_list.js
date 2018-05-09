@@ -24,11 +24,10 @@ class MessageList extends Component {
   }
 
   render() {
-    console.log('MessageList:render', this.state.messages)
     return (
       <div className="row">
         <div className="col-md-10">
-          { this.state.messages.map((message) => this.renderMessage(message))}
+          { this.state.messages.map((message, index, array) => this.renderMessage(message)) }
         </div>
       </div>
     )

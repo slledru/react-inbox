@@ -17,7 +17,13 @@ selected: true,
 class Message extends Component {
   constructor(props) {
     super(props)
+    // this.state is set only once when Message is instantiated
     this.state = { ...props.message }
+  }
+
+  // this is called when property changes
+  componentWillReceiveProps(newProps){
+    this.setState({ ...newProps.message })
   }
 
   convertStateToMessage = (state) => {
@@ -26,7 +32,6 @@ class Message extends Component {
   }
 
   onSelectedChanged = (event) => {
-    console.log('onSelectedChanged')
     event.preventDefault()
     const newState = { ...this.state, selected: !this.state.selected }
     this.setState(newState)
@@ -34,7 +39,6 @@ class Message extends Component {
   }
 
   onStarClicked = (event) => {
-    console.log('onStarClicked')
     event.preventDefault()
     const newState = { ...this.state, starred: !this.state.starred }
     this.setState(newState)
@@ -42,7 +46,6 @@ class Message extends Component {
   }
 
   render() {
-    console.log('Message:render', this.state)
     return (
       <div className="row message">
         <div className="col-xs-1">
