@@ -80,7 +80,7 @@ class Toolbar extends Component {
         <div className="col-md-11">
           <p className="pull-right">
             <span className="badge badge">{ this.getUnreadMessageCount() }</span>
-            { this.getUnreadMessageCount() < 1 ? 'unread message' : 'unread messages' }
+            { this.getUnreadMessageCount() === 1 ? 'unread message' : 'unread messages' }
           </p>
 
           <button className="btn btn-default" onClick={ this.onMessageSelected } disabled={ disabledAttribute }>
