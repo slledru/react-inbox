@@ -5,6 +5,11 @@ import Toolbar from './components/toolbar'
 import MessageList from './components/message_list'
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { messages: props.messages }
+  }
+
   applyLabel = (label) => {
     console.log('App.applyLabel', label)
   }
@@ -17,6 +22,18 @@ class App extends Component {
     console.log('Message selected', selected)
   }
 
+  markMessageAsRead = () => {
+    console.log('Mark Selected Messages Read')
+  }
+
+  markMessageAsUnread = () => {
+    console.log('Mark Selected Messages Unread')
+  }
+
+  deleteMessage = () => {
+    console.log('Delete Selected Messages')
+  }
+
   render() {
     return (
       <div className="App">
@@ -24,8 +41,11 @@ class App extends Component {
           applyLabel={ this.applyLabel }
           removeLabel={ this.removeLabel }
           selectMessage={ this.selectMessage }
+          deleteMessage={ this.deleteMessage }
+          markMessageAsRead = { this.markMessageAsRead }
+          markMessageAsUnread = { this.markMessageAsUnread }
         />
-        <MessageList />
+      <MessageList messages={ this.state.messages }/>
       </div>
     )
   }

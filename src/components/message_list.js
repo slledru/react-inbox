@@ -6,17 +6,19 @@ import '../App.css'
 import '../inbox.css'
 
 import React, { Component } from 'react'
+import Message from './message'
 
 class MessageList extends Component {
   constructor(props) {
     super(props)
+    this.state = { messages: props.messages }
   }
 
   render() {
     return (
       <div className="row">
         <div className="col-md-12">
-        Message List
+          { this.state.messages.map((message) => <Message key={ message.id } message={ message }/>)}
         </div>
       </div>
     )

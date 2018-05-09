@@ -36,6 +36,18 @@ class Toolbar extends Component {
     this.props.selectMessage(!this.state.messageSelected)
   }
 
+  onMessageDelete = (event) => {
+
+  }
+
+  onMarkMessageAsRead = (event) => {
+
+  }
+
+  onMarkMessageAsUnread = (event) => {
+
+  }
+
   render() {
     return (
       <div className="row toolbar">
@@ -48,10 +60,10 @@ class Toolbar extends Component {
           <button className="btn btn-default" onClick={ this.onMessageSelected }>
             { this.state.messageSelected ? <i className="fa fa-check-square-o"></i> : <i className="far fa-square"></i> }
           </button>
-          <button className="btn btn-default">
+          <button className="btn btn-default" onClick={ this.onMarkMessageAsRead }>
             Mark as Read
           </button>
-          <button className="btn btn-default">
+          <button className="btn btn-default" onClick={ this.onMarkMessageAsUnread }>
             Mark as Unread
           </button>
 
@@ -71,7 +83,7 @@ class Toolbar extends Component {
             <option value="gschool">gschool</option>
           </select>
 
-          <button className="btn btn-default">
+          <button className="btn btn-default" onClick={ this.onMessageDelete }>
             <i className="fa fa-trash-o"></i>
           </button>
 
