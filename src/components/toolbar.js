@@ -96,6 +96,10 @@ class Toolbar extends Component {
             { this.getUnreadMessageCount() === 1 ? 'unread message' : 'unread messages' }
           </p>
 
+          <a className="btn btn-danger">
+            <i className="fa fa-plus"></i>
+          </a>
+
           <button className="btn btn-default" onClick={ this.onMessageSelected } disabled={ disabledAttribute }>
             { this.getSelectImage() }
           </button>
