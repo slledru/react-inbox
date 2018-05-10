@@ -10,6 +10,16 @@ class App extends Component {
     this.state = { messages: props.messages }
   }
 
+  async componentDidMount() {
+    const response = await fetch(`/api/messages`)
+    if (response.status === 200) {
+      const json = await response.json()
+      this.setState({
+        messages: json._embedded.messages
+      })
+    }
+  }
+
   applyLabel = (label) => {
     this.setState({
       messages: this.state.messages.map((message) => {
@@ -91,6 +101,9 @@ class App extends Component {
   }
 
   render() {
+    if (!this.state.messages) {
+      return <div>Loading...</div>
+    }
     return (
       <div className="App">
         <Toolbar
