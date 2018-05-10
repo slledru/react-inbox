@@ -50,13 +50,12 @@ class App extends Component {
     }
   }
 
-  constructLabelBody(label, command) {
+  constructBody(command) {
     const reqBody = this.state.messages.reduce((acc, message) => {
       if (message.selected) {
         if (!acc.messageIds) {
           acc.messageIds = [ message.id ]
           acc.command = command
-          acc.label = label
         }
         else {
           acc.messageIds.push(message.id)
@@ -64,6 +63,12 @@ class App extends Component {
       }
       return acc
     }, {})
+    return reqBody
+  }
+
+  constructLabelBody(label, command) {
+    const reqBody = this.constructBody(command)
+    reqBody.label = label
     return reqBody
   }
 
@@ -106,9 +111,8 @@ class App extends Component {
   }
 
   deleteMessage = () => {
-    this.setState({
-      messages: this.state.messages.filter((message) => !message.selected)
-    })
+    const reqBody = this.constructBody('delete')
+    this.sendPatchCommand(reqBody)
   }
 
   select = (updated) => {
