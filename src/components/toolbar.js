@@ -13,6 +13,7 @@ class Toolbar extends Component {
     this.state = {
       apply: '',
       remove: '',
+      formToggle: props.formToggle,
       messages: props.messages,
       messageSelected: props.messages.filter((message) => message.selected).length > 0
     }
@@ -23,6 +24,7 @@ class Toolbar extends Component {
 
     this.setState({
       ...this.state,
+      formToggle: newProps.formToggle,
       messages: newProps.messages,
       messageSelected: newProps.messages.filter((message) => message.selected).length > 0
     })
@@ -61,6 +63,11 @@ class Toolbar extends Component {
     this.props.markMessageAsUnread()
   }
 
+  onNewMessage = (event) => {
+    event.preventDefault()
+    this.props.toggleComposeForm(!this.state.formToggle)
+  }
+
   getMessageCount = () => {
     return this.state.messages.length
   }
@@ -96,7 +103,7 @@ class Toolbar extends Component {
             { this.getUnreadMessageCount() === 1 ? 'unread message' : 'unread messages' }
           </p>
 
-          <a className="btn btn-danger">
+          <a className="btn btn-danger" onClick={ this.onNewMessage }>
             <i className="fa fa-plus"></i>
           </a>
 

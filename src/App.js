@@ -7,7 +7,10 @@ import MessageList from './components/message_list'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { messages: props.messages }
+    this.state = {
+      messages: props.messages,
+      composeClass: 'hide'
+    }
   }
 
   resetSelected(newMessages) {
@@ -30,6 +33,7 @@ class App extends Component {
       const json = await response.json()
       const newMessages = this.resetSelected(json._embedded.messages)
       this.setState({
+        ...this.state,
         messages: newMessages
       })
     }
@@ -88,6 +92,7 @@ class App extends Component {
       return message
     })
     this.setState({
+      ...this.state,
       messages: newMessages
     })
   }
@@ -115,6 +120,7 @@ class App extends Component {
 
   select = (updated) => {
     this.setState({
+      ...this.state,
       messages: this.state.messages.map((message) => {
         if (message.id === updated.id) {
           message.selected = updated.selected
@@ -133,6 +139,13 @@ class App extends Component {
     this.sendPatchCommand(reqBody)
   }
 
+  toggleComposeForm = (show) => {
+    this.setState({
+      ...this.state,
+      formToggle: show
+    })
+  }
+
   render() {
     if (!this.state.messages) {
       return <div>Loading...</div>
@@ -143,12 +156,15 @@ class App extends Component {
           messages={ this.state.messages }
           applyLabel={ this.applyLabel }
           removeLabel={ this.removeLabel }
+          toggleComposeForm= { this.toggleComposeForm }
+          formToggle={ this.state.formToggle }
           selectAllMessage={ this.selectAllMessage }
           deleteMessage={ this.deleteMessage }
           markMessageAsRead = { this.markMessageAsRead }
           markMessageAsUnread = { this.markMessageAsUnread }
         />
         <MessageList messages={ this.state.messages }
+          formToggle={ this.state.formToggle }
           select={ this.select }
           star={ this.star }
         />

@@ -72,3 +72,11 @@ footer.spacer {
 .fa-close {
   cursor: pointer;
 }
+
+.hide {
+  visibility: collapse;
+}
+
+.show {
+  visibility: visible;
+}
