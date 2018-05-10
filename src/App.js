@@ -118,6 +118,24 @@ class App extends Component {
     this.sendPatchCommand(reqBody)
   }
 
+  addMessage = async (message) => {
+    const response = await fetch(`/api/messages`, {
+      method: 'POST',
+      body: JSON.stringify(message),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    })
+    if (response.status === 200) {
+      await this.componentDidMount()
+    }
+    this.setState({
+      ...this.state,
+      formToggle: !this.state.formToggle
+    })
+  }
+
   select = (updated) => {
     this.setState({
       ...this.state,
@@ -167,6 +185,7 @@ class App extends Component {
           formToggle={ this.state.formToggle }
           select={ this.select }
           star={ this.star }
+          addMessage = { this.addMessage }
         />
       </div>
     )

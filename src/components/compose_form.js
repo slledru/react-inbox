@@ -12,9 +12,19 @@ class ComposeForm extends Component {
     super(props)
   }
 
+  onSubmit = (event) => {
+    event.preventDefault()
+    const subject = document.querySelector('#subject').value || ''
+    const body = document.querySelector('#body').value || ''
+    if (subject && body) {
+      this.props.addMessage({ subject, body })
+      event.target.reset()
+    }
+  }
+
   render() {
     return (
-      <form className="form-horizontal well">
+      <form className="form-horizontal well" onSubmit={ this.onSubmit }>
         <div className="form-group">
           <div className="col-sm-8 col-sm-offset-2">
             <h4>Compose Message</h4>
