@@ -73,6 +73,19 @@ class Toolbar extends Component {
     return this.state.messages.filter((message) => message.selected).length
   }
 
+  getSelectImage = () => {
+    let image = (<i className="far fa-square"></i>)
+    if (this.getSelectedMessageCount() > 0) {
+      if (this.getSelectedMessageCount() === this.getMessageCount()) {
+        image = (<i className="fa fa-check-square-o"></i>)
+      }
+      else {
+        image = (<i className="fa fa-minus-square-o"></i>)
+      }
+    }
+    return image
+  }
+
   render() {
     const disabledAttribute = (this.getMessageCount() <= 0)
     return (
@@ -84,7 +97,7 @@ class Toolbar extends Component {
           </p>
 
           <button className="btn btn-default" onClick={ this.onMessageSelected } disabled={ disabledAttribute }>
-            { this.state.messageSelected ? <i className="fa fa-check-square-o"></i> : <i className="far fa-square"></i> }
+            { this.getSelectImage() }
           </button>
           <button className="btn btn-default" onClick={ this.onMarkMessageAsRead } disabled={ disabledAttribute }>
             Mark as Read
