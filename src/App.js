@@ -93,21 +93,19 @@ class App extends Component {
   }
 
   markMessages = (read) => {
-    return this.state.messages
-      .map((message) => {
-        if (message.selected) {
-          message.read = read
-        }
-        return message
-      })
+    const reqBody = this.constructBody('read')
+    reqBody.read = read
+    return reqBody
   }
 
   markMessageAsRead = () => {
-    this.setState({ messages: this.markMessages(true) })
+    const reqBody = this.markMessages(true)
+    this.sendPatchCommand(reqBody)
   }
 
   markMessageAsUnread = () => {
-    this.setState({ messages: this.markMessages(false) })
+    const reqBody = this.markMessages(false)
+    this.sendPatchCommand(reqBody)
   }
 
   deleteMessage = () => {
