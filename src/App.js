@@ -124,15 +124,13 @@ class App extends Component {
     })
   }
 
-  star = (updated) => {
-    this.setState({
-      messages: this.state.messages.map((message) => {
-        if (message.id === updated.id) {
-          message.starred = updated.starred
-        }
-        return message
-      })
-    })
+  star = (message) => {
+    const reqBody = {
+      messageIds: [ message.id ],
+      command: 'star',
+      star: message.starred
+    }
+    this.sendPatchCommand(reqBody)
   }
 
   render() {
