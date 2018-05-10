@@ -10,18 +10,33 @@ class App extends Component {
     this.state = { messages: props.messages }
   }
 
+  resetSelected(newMessages) {
+    if (this.state.messages) {
+      return newMessages.map((message) => {
+        const found = this.state.messages.filter((old) => message.id === old.id && old.selected)
+        message.selected = false
+        if (found.length > 0) {
+          message.selected = true
+        }
+        return message
+      })
+    }
+    return newMessages
+  }
+
   async componentDidMount() {
     const response = await fetch(`/api/messages`)
     if (response.status === 200) {
       const json = await response.json()
+      const newMessages = this.resetSelected(json._embedded.messages)
       this.setState({
-        messages: json._embedded.messages
+        messages: newMessages
       })
     }
   }
 
   async sendPatchCommand(reqBody) {
-    console.log('sendPatchCommand:reqBody', JSON.stringify(reqBody))
+    console.log('sendPatchCommand:reqBody', reqBody)
     const response = await fetch(`/api/messages`, {
       method: 'PATCH',
       body: JSON.stringify(reqBody),
@@ -31,17 +46,16 @@ class App extends Component {
       }
     })
     if (response.status === 200) {
-      this.componentDidMount()
+      await this.componentDidMount()
     }
   }
 
-  applyLabel = (label) => {
-    const body = this.state.messages.reduce((acc, message) => {
-      if (message.selected &&
-          !message.labels.includes(label)) {
+  constructLabelBody(label, command) {
+    const reqBody = this.state.messages.reduce((acc, message) => {
+      if (message.selected) {
         if (!acc.messageIds) {
           acc.messageIds = [ message.id ]
-          acc.command = 'addLabel'
+          acc.command = command
           acc.label = label
         }
         else {
@@ -50,18 +64,17 @@ class App extends Component {
       }
       return acc
     }, {})
-    this.sendPatchCommand(body)
+    return reqBody
   }
 
-  removeLabel = (input) => {
-    this.setState({
-      messages: this.state.messages.map((message) => {
-        if (message.selected) {
-          message.labels = message.labels.filter((label) => label !== input)
-        }
-        return message
-      })
-    })
+  applyLabel = (label) => {
+    const reqBody = this.constructLabelBody(label, 'addLabel')
+    this.sendPatchCommand(reqBody)
+  }
+
+  removeLabel = (label) => {
+    const reqBody = this.constructLabelBody(label, 'removeLabel')
+    this.sendPatchCommand(reqBody)
   }
 
   selectAllMessage = (selected) => {
