@@ -20,17 +20,37 @@ class App extends Component {
     }
   }
 
-  applyLabel = (label) => {
-    this.setState({
-      messages: this.state.messages.map((message) => {
-        if (message.selected) {
-          if (!message.labels.includes(label)) {
-            message.labels = [ ...message.labels, label ]
-          }
-        }
-        return message
-      })
+  async sendPatchCommand(reqBody) {
+    console.log('sendPatchCommand:reqBody', JSON.stringify(reqBody))
+    const response = await fetch(`/api/messages`, {
+      method: 'PATCH',
+      body: JSON.stringify(reqBody),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
     })
+    if (response.status === 200) {
+      this.componentDidMount()
+    }
+  }
+
+  applyLabel = (label) => {
+    const body = this.state.messages.reduce((acc, message) => {
+      if (message.selected &&
+          !message.labels.includes(label)) {
+        if (!acc.messageIds) {
+          acc.messageIds = [ message.id ]
+          acc.command = 'addLabel'
+          acc.label = label
+        }
+        else {
+          acc.messageIds.push(message.id)
+        }
+      }
+      return acc
+    }, {})
+    this.sendPatchCommand(body)
   }
 
   removeLabel = (input) => {
