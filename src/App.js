@@ -14,6 +14,9 @@ class App extends Component {
     }
   }
 
+  // since 'selected' information is not saved by the API server
+  // once list of messages are retrieved, it needs to add
+  // 'selected' key/value must be added
   resetSelected(newMessages) {
     if (this.state.messages) {
       return newMessages.map((message) => {
