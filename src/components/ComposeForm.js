@@ -8,10 +8,6 @@ import '../inbox.css'
 import React, { Component } from 'react'
 
 class ComposeForm extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   onSubmit = (event) => {
     event.preventDefault()
     const subject = document.querySelector('#subject').value || ''

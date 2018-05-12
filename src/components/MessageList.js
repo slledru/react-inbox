@@ -6,8 +6,8 @@ import '../App.css'
 import '../inbox.css'
 
 import React, { Component } from 'react'
-import Message from './message'
-import ComposeForm from './compose_form'
+import Message from './Message'
+import ComposeForm from './ComposeForm'
 
 class MessageList extends Component {
   constructor(props) {
@@ -19,14 +19,14 @@ class MessageList extends Component {
   }
 
   // this is called when property changes
-  componentWillReceiveProps(newProps){
+  componentWillReceiveProps = (newProps) => {
     this.setState({
       messages: newProps.messages,
       formToggle: newProps.formToggle
     })
   }
 
-  renderMessage(message) {
+  renderMessage = (message) => {
     return (
       <Message key={ message.id }
         message={ message }
@@ -35,7 +35,7 @@ class MessageList extends Component {
     )
   }
 
-  render() {
+  render = () => {
     const newMessageForm = `col-md-10 ${this.state.formToggle ? 'show' : 'hide' }`
     return (
       <div className="row">
@@ -43,7 +43,7 @@ class MessageList extends Component {
           <ComposeForm addMessage = { this.props.addMessage } />
         </div>
         <div className="col-md-10">
-          { this.state.messages.map((message, index, array) => this.renderMessage(message)) }
+          { this.state.messages.map(this.renderMessage) }
         </div>
       </div>
     )

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import './App.css'
 
-import Toolbar from './components/toolbar'
-import MessageList from './components/message_list'
+import Toolbar from './components/Toolbar'
+import MessageList from './components/MessageList'
+
 
 class App extends Component {
   constructor(props) {
@@ -41,16 +42,18 @@ class App extends Component {
 
   async sendPatchCommand(reqBody) {
     console.log('sendPatchCommand:reqBody', reqBody)
-    const response = await fetch(`/api/messages`, {
-      method: 'PATCH',
-      body: JSON.stringify(reqBody),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
+    if (reqBody.command) {
+      const response = await fetch(`/api/messages`, {
+        method: 'PATCH',
+        body: JSON.stringify(reqBody),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        }
+      })
+      if (response.status === 200) {
+        await this.componentDidMount()
       }
-    })
-    if (response.status === 200) {
-      await this.componentDidMount()
     }
   }
 
@@ -72,7 +75,9 @@ class App extends Component {
 
   constructLabelBody(label, command) {
     const reqBody = this.constructBody(command)
-    reqBody.label = label
+    if (reqBody.command) {
+      reqBody.label = label
+    }
     return reqBody
   }
 
@@ -181,7 +186,8 @@ class App extends Component {
           markMessageAsRead = { this.markMessageAsRead }
           markMessageAsUnread = { this.markMessageAsUnread }
         />
-        <MessageList messages={ this.state.messages }
+        <MessageList
+          messages={ this.state.messages }
           formToggle={ this.state.formToggle }
           select={ this.select }
           star={ this.star }

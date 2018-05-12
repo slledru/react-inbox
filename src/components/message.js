@@ -18,16 +18,23 @@ class Message extends Component {
   constructor(props) {
     super(props)
     // this.state is set only once when Message is instantiated
-    this.state = { ...props.message }
+    this.state = {
+      selected: props.message.selected,
+      starred: props.message.starred
+    }
   }
 
   // this is called when property changes
   componentWillReceiveProps(newProps){
-    this.setState({ ...newProps.message })
+    this.setState({
+      selected: newProps.message.selected,
+      starred: newProps.message.starred
+    })
   }
 
   convertStateToMessage = (state) => {
-    const { id, subject, read, starred, selected } = state
+    const { starred, selected } = state
+    const { id, subject, read } = this.props.message
     return { id, subject, read, starred, selected }
   }
 
@@ -46,28 +53,18 @@ class Message extends Component {
   }
 
   existLabel = (label) => {
-    return this.state.labels.includes(label)
+    return this.props.message.labels.includes(label)
   }
 
-  getDevLabel = () => {
-    if (this.existLabel('dev')) {
-      return <span className="label label-warning">dev</span>
+  getLabel = (label) => {
+    if (this.existLabel(label)) {
+      return <span key={ label } className="label label-warning">{ label }</span>
     }
     return ''
   }
 
-  getPersonalLabel = () => {
-    if (this.existLabel('personal')) {
-      return <span className="label label-warning">personal</span>
-    }
-    return ''
-  }
-
-  getGSchoolLabel = () => {
-    if (this.existLabel('gschool')) {
-      return <span className="label label-warning">gschool</span>
-    }
-    return ''
+  renderLabel = () => {
+    return this.props.message.labels.map(this.getLabel)
   }
 
   render() {
@@ -75,7 +72,7 @@ class Message extends Component {
     if (this.state.selected) {
       rowStyle += " selected"
     }
-    if (this.state.read) {
+    if (this.props.message.read) {
       rowStyle += " read"
     }
     else {
@@ -94,11 +91,9 @@ class Message extends Component {
           </div>
         </div>
         <div className="col-xs-11 text-left">
-          { this.getDevLabel() }
-          { this.getPersonalLabel() }
-          { this.getGSchoolLabel() }
+          { this.renderLabel() }
           <a >
-            {this.state.subject}
+            {this.props.message.subject}
           </a>
         </div>
       </div>

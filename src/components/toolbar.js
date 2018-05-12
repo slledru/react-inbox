@@ -7,6 +7,8 @@ import '../inbox.css'
 
 import React, { Component } from 'react'
 
+const labelList = [ 'dev', 'personal', 'gschool']
+
 class Toolbar extends Component {
   constructor(props) {
     super(props)
@@ -93,6 +95,12 @@ class Toolbar extends Component {
     return image
   }
 
+  renderLabelList() {
+    return (
+      labelList.map((label, index) => <option key={ index + 1 } value={ label }>{ label }</option>)
+    )
+  }
+
   render() {
     const disabledAttribute = (this.getMessageCount() <= 0)
     return (
@@ -120,17 +128,13 @@ class Toolbar extends Component {
           <select className="form-control label-select"
             onChange={ this.onApplyLabel } value={ this.state.apply } disabled={ disabledAttribute }>
             <option>Apply label</option>
-            <option value="dev">dev</option>
-            <option value="personal">personal</option>
-            <option value="gschool">gschool</option>
+            { this.renderLabelList() }
           </select>
 
           <select className="form-control label-select"
             onChange={ this.onRemoveLabel } value={ this.state.remove } disabled={ disabledAttribute }>
             <option>Remove label</option>
-            <option value="dev">dev</option>
-            <option value="personal">personal</option>
-            <option value="gschool">gschool</option>
+              { this.renderLabelList() }
           </select>
 
           <button className="btn btn-default" onClick={ this.onMessageDelete } disabled={ disabledAttribute }>
