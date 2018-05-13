@@ -6,6 +6,9 @@ import '../App.css'
 import '../inbox.css'
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import addMessage from '../actions/actionPost'
+import { bindActionCreators } from 'redux'
 
 class ComposeForm extends Component {
   onSubmit = (event) => {
@@ -13,7 +16,7 @@ class ComposeForm extends Component {
     const subject = document.querySelector('#subject').value || ''
     const body = document.querySelector('#body').value || ''
     if (subject && body) {
-      this.props.addMessage({ subject, body })
+      this.props.addMessage(subject, body)
       event.target.reset()
     }
   }
@@ -48,4 +51,8 @@ class ComposeForm extends Component {
   }
 }
 
-export default ComposeForm
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addMessage }, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(ComposeForm)
