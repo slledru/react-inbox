@@ -1,10 +1,10 @@
 import { ADD_MESSAGE, TOGGLE_FORM } from '../constants'
 
 function addMessage(state = {}, action) {
-  console.log('addMessage', state, action)
   /* eslint-disable */
   switch (action.type) {
     case ADD_MESSAGE:
+      console.log('addMessage', state, action)
       return {
         ...state
       }

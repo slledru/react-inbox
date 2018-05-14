@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import getMessages from './reducerGet'
-import addMessage from './reducerPost'
+import getMessagesReducer from './reducerGet'
+import addMessageReducer from './reducerPost'
 
 const rootReducer = combineReducers({
-  getMessages,
-  addMessage
+  messages: getMessagesReducer,
+  addMessageReducer
 })
 
 export default rootReducer;

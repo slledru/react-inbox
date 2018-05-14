@@ -1,13 +1,10 @@
 import { FETCH_MESSAGES } from '../constants'
 
-function getMessages(state = {}, action) {
-  console.log('getMessages', state, action)
+function getMessages(state = null, action) {
   /* eslint-disable */
   switch (action.type) {
     case FETCH_MESSAGES:
-      return {
-        ...state
-      }
+      return [ ...action.payload.data._embedded.messages ]
     default:
   }
   /* eslint-enable */

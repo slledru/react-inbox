@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import './App.css'
-
 import Toolbar from './components/Toolbar'
 import MessageList from './components/MessageList'
 
@@ -31,17 +29,17 @@ class App extends Component {
     return newMessages
   }
 
-  async componentDidMount() {
-    const response = await fetch(`/api/messages`)
-    if (response.status === 200) {
-      const json = await response.json()
-      const newMessages = this.resetSelected(json._embedded.messages)
-      this.setState({
-        ...this.state,
-        messages: newMessages
-      })
-    }
-  }
+  // async componentDidMount() {
+  //   // const response = await fetch(`/api/messages`)
+  //   // if (response.status === 200) {
+  //   //   const json = await response.json()
+  //   //   const newMessages = this.resetSelected(json._embedded.messages)
+  //   //   this.setState({
+  //   //     ...this.state,
+  //   //     messages: newMessages
+  //   //   })
+  //   // }
+  // }
 
   async sendPatchCommand(reqBody) {
     console.log('sendPatchCommand:reqBody', reqBody)
@@ -173,22 +171,8 @@ class App extends Component {
   }
 
   render() {
-    if (!this.state.messages) {
-      return <div>Loading...</div>
-    }
     return (
       <div className="App">
-        <Toolbar
-          messages={ this.state.messages }
-          applyLabel={ this.applyLabel }
-          removeLabel={ this.removeLabel }
-          toggleComposeForm= { this.toggleComposeForm }
-          formToggle={ this.state.formToggle }
-          selectAllMessage={ this.selectAllMessage }
-          deleteMessage={ this.deleteMessage }
-          markMessageAsRead = { this.markMessageAsRead }
-          markMessageAsUnread = { this.markMessageAsUnread }
-        />
         <MessageList
           messages={ this.state.messages }
           formToggle={ this.state.formToggle }
