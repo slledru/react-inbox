@@ -12,24 +12,6 @@ class MessageList extends Component {
     this.props.getMessages()
   }
 
-  onSelectedChanged = (id) => (event) => {
-    event.preventDefault()
-    console.log('onSelectedChanged', id)
-    this.props.selectMessage(id)
-    //this.props.selectMessage(this.props.message)
-    // const newState = { ...this.state, selected: !this.state.selected }
-    // this.setState(newState)
-    // this.props.select(this.convertStateToMessage(newState))
-  }
-
-  onStarClicked = (message) => (event) => {
-    event.preventDefault()
-    this.props.starMessage(message)
-    // const newState = { ...this.state, starred: !this.state.starred }
-    // this.setState(newState)
-    // this.props.star(this.convertStateToMessage(newState))
-  }
-
   renderMessage = (message) => {
     return (
       <Message key={ message.id } message={ message } />
