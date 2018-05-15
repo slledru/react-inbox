@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import ComposeForm from './ComposeForm'
+import Message from './Message'
 import getMessages from '../actions/actionGet'
 import { starMessage, selectMessage } from '../actions/actionPatch'
 
@@ -29,47 +30,9 @@ class MessageList extends Component {
     // this.props.star(this.convertStateToMessage(newState))
   }
 
-  renderLabel = (message) => {
-    return message.labels.map((label) => {
-      return <span key={ label } className="label label-warning">{ label }</span>
-    })
-  }
-
   renderMessage = (message) => {
-    if (!message) {
-      return <div>Loading...</div>
-    }
-    let rowStyle = "row message"
-    if (this.props.selectedList.includes(message.id)) {
-      rowStyle += " selected"
-    }
-    if (message.read) {
-      rowStyle += " read"
-    }
-    else {
-      rowStyle += " unread"
-    }
     return (
-      <div className={ rowStyle } key={ message.id }>
-        <div className="col-xs-1">
-          <div className="row">
-            <div className="col-xs-2" onClick={ this.onSelectedChanged(message.id) }>
-              { this.props.selectedList.includes(message.id) ?
-                  <i className="fa fa-check-square-o"></i> :
-                  <i className="far fa-square"></i> }
-            </div>
-            <div className="col-xs-2" onClick={ this.onStarClicked(message) }>
-              { message.starred ? <i className="fa fa-star"></i> : <i className="fa fa-star-o"></i>}
-            </div>
-          </div>
-        </div>
-        <div className="col-xs-11 text-left">
-          { this.renderLabel(message) }
-          <a >
-            {message.subject}
-          </a>
-        </div>
-      </div>
+      <Message key={ message.id } message={ message } />
     )
   }
 
@@ -98,6 +61,7 @@ function mapStateToProps(state) {
   console.log('MessageList:mapStateToProps - state: ', state)
   return {
     messages: state.messages,
+    toggleForm: state.toggleForm,
     selectedList: state.selectedList
   }
 }

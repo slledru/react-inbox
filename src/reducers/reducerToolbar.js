@@ -25,6 +25,9 @@ function selectMessage(state = [], action) {
     case SELECT_MESSAGE:
       console.log('select:action', action)
       console.log('select:state', state)
+      if (state.includes(action.payload)) {
+        return state.filter((id) => id !== action.payload)
+      }
       return [ ...state, action.payload ]
     default:
   }
@@ -39,7 +42,7 @@ function starMessage(state = [], action) {
     case STAR_MESSAGE:
       console.log('star', [ ...state, action.payload ])
       if (action.payload.status === 200) {
-        
+
       }
       return [ ...action.payload.data._embedded.messages ]
     default:
