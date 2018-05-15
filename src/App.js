@@ -173,6 +173,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Toolbar
+          messages={ this.state.messages }
+          applyLabel={ this.applyLabel }
+          removeLabel={ this.removeLabel }
+          toggleComposeForm= { this.toggleComposeForm }
+          formToggle={ this.state.formToggle }
+          selectAllMessage={ this.selectAllMessage }
+          deleteMessage={ this.deleteMessage }
+          markMessageAsRead = { this.markMessageAsRead }
+          markMessageAsUnread = { this.markMessageAsUnread }
+        />
         <MessageList
           messages={ this.state.messages }
           formToggle={ this.state.formToggle }

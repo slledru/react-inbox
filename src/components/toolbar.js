@@ -1,40 +1,30 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { applyLabel, removeLabel } from '../actions/actionPatch'
 
 const labelList = [ 'dev', 'personal', 'gschool']
 
 class Toolbar extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      apply: '',
-      remove: '',
-      formToggle: props.formToggle,
-      messages: props.messages,
-      messageSelected: props.messages.filter((message) => message.selected).length > 0
-    }
-  }
-
-  // this is called when property changes
-  componentWillReceiveProps(newProps){
-
-    this.setState({
-      ...this.state,
-      formToggle: newProps.formToggle,
-      messages: newProps.messages,
-      messageSelected: newProps.messages.filter((message) => message.selected).length > 0
-    })
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     apply: '',
+  //     remove: '',
+  //     formToggle: props.formToggle,
+  //     messages: props.messages,
+  //     messageSelected: props.messages.filter((message) => message.selected).length > 0
+  //   }
+  // }
 
   onApplyLabel = (event) => {
     event.preventDefault()
     this.props.applyLabel(event.target.value)
-    this.setState({ ...this.state, remove: '', apply: event.target.value })
   }
 
   onRemoveLabel = (event) => {
     event.preventDefault()
     this.props.removeLabel(event.target.value)
-    this.setState({ ...this.state, apply: '', remove: event.target.value })
   }
 
   onMessageSelected = (event) => {
@@ -60,19 +50,20 @@ class Toolbar extends Component {
 
   onNewMessage = (event) => {
     event.preventDefault()
-    this.props.toggleComposeForm(!this.state.formToggle)
+    this.props.toggleComposeForm(!this.props.toggleForm)
   }
 
   getMessageCount = () => {
-    return this.state.messages.length
+    return this.props.messages ? this.props.messages.length : 0
   }
 
   getUnreadMessageCount = () => {
-    return this.state.messages.filter((message) => !message.read).length
+    return this.props.messages ?
+      this.props.messages.filter((message) => !message.read).length : 0
   }
 
   getSelectedMessageCount = () => {
-    return this.state.messages.filter((message) => message.selected).length
+    return this.props.selectedList.length
   }
 
   getSelectImage = () => {
@@ -119,13 +110,13 @@ class Toolbar extends Component {
           </button>
 
           <select className="form-control label-select"
-            onChange={ this.onApplyLabel } value={ this.state.apply } disabled={ disabledAttribute }>
+            onChange={ this.onApplyLabel } value={ this.props.apply } disabled={ disabledAttribute }>
             <option>Apply label</option>
             { this.renderLabelList() }
           </select>
 
           <select className="form-control label-select"
-            onChange={ this.onRemoveLabel } value={ this.state.remove } disabled={ disabledAttribute }>
+            onChange={ this.onRemoveLabel } value={ this.props.remove } disabled={ disabledAttribute }>
             <option>Remove label</option>
               { this.renderLabelList() }
           </select>
@@ -140,4 +131,22 @@ class Toolbar extends Component {
   }
 }
 
-export default Toolbar
+function mapStateToProps(state) {
+  return {
+    messages: state.messages,
+    selectedList: state.selectedList,
+    toggleForm: state.toggleForm,
+    apply: state.apply,
+    remove: state.remove
+  }
+}
+
+// Anything returned from this function will end up as props
+// on the MessageList container
+function mapDispatchToProps(dispatch) {
+  // Whenever getMessages is called, the result should be passed
+  // to all of our reducers
+  return bindActionCreators({ applyLabel, removeLabel }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)
