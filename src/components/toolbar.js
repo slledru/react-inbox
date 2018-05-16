@@ -107,13 +107,13 @@ class Toolbar extends Component {
           </button>
 
           <select className="form-control label-select"
-            onChange={ this.onApplyLabel } value={ this.props.apply } disabled={ disabledAttribute }>
-            <option>Apply label</option>
+            onChange={ this.onApplyLabel } disabled={ disabledAttribute }>
+            <option default>Apply label</option>
             { this.renderLabelList() }
           </select>
 
           <select className="form-control label-select"
-            onChange={ this.onRemoveLabel } value={ this.props.remove } disabled={ disabledAttribute }>
+            onChange={ this.onRemoveLabel } disabled={ disabledAttribute }>
             <option>Remove label</option>
               { this.renderLabelList() }
           </select>
