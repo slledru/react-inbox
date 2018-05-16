@@ -37,12 +37,12 @@ class Toolbar extends Component {
 
   onMarkMessageAsRead = (event) => {
     event.preventDefault()
-    this.props.markMessageAsRead(this.props.selectedList)
+    this.props.markAsRead(this.props.selectedList)
   }
 
   onMarkMessageAsUnread = (event) => {
     event.preventDefault()
-    this.props.markMessageAsUnread(this.props.selectedList)
+    this.props.markAsUnread(this.props.selectedList)
   }
 
   onNewMessage = (event) => {
