@@ -1,12 +1,25 @@
-import axios from 'axios'
-import { API_URL, APPLY_LABEL, REMOVE_LABEL,
-  STAR_MESSAGE, SELECT_MESSAGE } from '../constants'
+import { API_URL, SELECT_MESSAGE } from '../constants'
+import getMessages from '../actions/actionGet'
 
-function sendPatchCommand(reqBody) {
+async function sendPatchCommand(reqBody) {
   console.log('sendPatchCommand:reqBody', reqBody)
   if (reqBody.command) {
-    return axios.patch(API_URL, reqBody)
+    const response = await fetch(API_URL, {
+      method: 'PATCH',
+      body: JSON.stringify(reqBody),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    })
+    if (response.status === 200) {
+      return getMessages()
+    }
+    else {
+      console.log('Something bad happened when adding part')
+    }
   }
+  console.log('sendPatchCommand:exits')
   return null
 }
 
@@ -36,31 +49,21 @@ function constructLabelBody(label, command) {
 
 function applyLabel(label) {
   const body = constructLabelBody(label, 'addLabel')
-  return {
-    type: APPLY_LABEL,
-    payload: sendPatchCommand(body)
-  }
+  return sendPatchCommand(body)
 }
 
 function removeLabel(label) {
   const body = constructLabelBody(label, 'removeLabel')
-  return {
-    type: REMOVE_LABEL,
-    payload: sendPatchCommand(body)
-  }
+  return sendPatchCommand(body)
 }
 
 function starMessage(message) {
   const body = {
     messageIds: [ message.id ],
     command: 'star',
-    star: message.starred
+    star: !message.starred
   }
-  return {
-    type: STAR_MESSAGE,
-    message: message,
-    payload: sendPatchCommand(body)
-  }
+  return sendPatchCommand(body)
 }
 
 function selectMessage(id) {

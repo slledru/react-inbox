@@ -2,10 +2,10 @@ import axios from 'axios'
 import { API_URL, FETCH_MESSAGES } from '../constants'
 
 function getMessages() {
-  const request = axios.get(API_URL)
+  console.log('action: getMessages')
   return {
     type: FETCH_MESSAGES,
-    payload: request
+    payload: axios.get(API_URL)
   }
 }
 

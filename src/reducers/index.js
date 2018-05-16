@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 import getMessagesReducer from './reducerGet'
 import addMessageReducer from './reducerPost'
-import { selectMessage } from './reducerToolbar'
+import selectMessage from './reducerToolbar'
 
 const rootReducer = combineReducers({
   messages: getMessagesReducer,
   addMessageReducer,
-  selectedList: selectMessage,
+  selectedList: selectMessage
 })
 
 export default rootReducer;

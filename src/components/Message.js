@@ -6,7 +6,6 @@ import { starMessage, selectMessage } from '../actions/actionPatch'
 class Message extends Component {
   onSelectedChanged = (id) => (event) => {
     event.preventDefault()
-    console.log('onSelectedChanged', id)
     this.props.selectMessage(id)
   }
 
@@ -46,7 +45,7 @@ class Message extends Component {
                   <i className="far fa-square"></i> }
             </div>
             <div className="col-xs-2" onClick={ this.onStarClicked(message) }>
-              { message.starred ? <i className="fa fa-star"></i> : <i className="fa fa-star-o"></i>}
+              { message.starred ? <i className="fa fa-star"></i> : <i className="fa fa-star-o"></i> }
             </div>
           </div>
         </div>
@@ -64,21 +63,19 @@ class Message extends Component {
 function mapStateToProps(state) {
   // Whatever is returned will show up as props
   // inside of Message
-  console.log('Message:mapStateToProps - state: ', state)
+  // console.log('Message:mapStateToProps - state: ', state)
   return {
     selectedList: state.selectedList
   }
 }
 
 // Anything returned from this function will end up as props
-// on the MessageList container
+// on the Message container
 function mapDispatchToProps(dispatch) {
-  // Whenever getMessages is called, the result should be passed
-  // to all of our reducers
   return bindActionCreators({ starMessage, selectMessage }, dispatch)
 }
 
-// Promote MessageList from component to container - it needs to know
-// about this new dispatch method, selectBook.  Make it available
+// Promote Message from component to container - it needs to know
+// about this new dispatch method, starMessage abd selectMessage.  Make it available
 // as a prop.
 export default connect(mapStateToProps, mapDispatchToProps)(Message)

@@ -12,14 +12,10 @@ class MessageList extends Component {
     this.props.getMessages()
   }
 
-  renderMessage = (message) => {
-    return (
-      <Message key={ message.id } message={ message } />
-    )
-  }
+  renderMessage = (message) => <Message key={ message.id } message={ message } />
 
   render = () => {
-    console.log('MessageList:render', this.props.messages)
+    //console.log('MessageList:render', this.props.messages)
     if (!this.props.messages) {
       return <div>Loading...</div>
     }
@@ -43,8 +39,7 @@ function mapStateToProps(state) {
   console.log('MessageList:mapStateToProps - state: ', state)
   return {
     messages: state.messages,
-    toggleForm: state.toggleForm,
-    selectedList: state.selectedList
+    toggleForm: state.toggleForm
   }
 }
 
