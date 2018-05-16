@@ -1,51 +1,39 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { applyLabel, removeLabel } from '../actions/actionPatch'
+import { applyLabel, removeLabel, selectAllMessages } from '../actions/actionPatch'
 
 const labelList = [ 'dev', 'personal', 'gschool']
 
 class Toolbar extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     apply: '',
-  //     remove: '',
-  //     formToggle: props.formToggle,
-  //     messages: props.messages,
-  //     messageSelected: props.messages.filter((message) => message.selected).length > 0
-  //   }
-  // }
-
   onApplyLabel = (event) => {
     event.preventDefault()
-    this.props.applyLabel(event.target.value)
+    this.props.applyLabel(event.target.value, this.props.selectedList)
   }
 
   onRemoveLabel = (event) => {
     event.preventDefault()
-    this.props.removeLabel(event.target.value)
+    this.props.removeLabel(event.target.value, this.props.selectedList)
   }
 
   onMessageSelected = (event) => {
     event.preventDefault()
-    this.setState({ ...this.state, messageSelected: !this.state.messageSelected })
-    this.props.selectAllMessage(!this.state.messageSelected)
+    this.props.selectAllMessages(this.props.messages, this.props.selectedList)
   }
 
   onMessageDelete = (event) => {
     event.preventDefault()
-    this.props.deleteMessage()
+    this.props.deleteMessage(this.props.selectedList)
   }
 
   onMarkMessageAsRead = (event) => {
     event.preventDefault()
-    this.props.markMessageAsRead()
+    this.props.markMessageAsRead(this.props.selectedList)
   }
 
   onMarkMessageAsUnread = (event) => {
     event.preventDefault()
-    this.props.markMessageAsUnread()
+    this.props.markMessageAsUnread(this.props.selectedList)
   }
 
   onNewMessage = (event) => {
@@ -135,9 +123,7 @@ function mapStateToProps(state) {
   return {
     messages: state.messages,
     selectedList: state.selectedList,
-    toggleForm: state.toggleForm,
-    apply: state.apply,
-    remove: state.remove
+    toggleForm: state.toggleForm
   }
 }
 
@@ -146,7 +132,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   // Whenever getMessages is called, the result should be passed
   // to all of our reducers
-  return bindActionCreators({ applyLabel, removeLabel }, dispatch)
+  return bindActionCreators({ applyLabel, removeLabel, selectAllMessages }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)

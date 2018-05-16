@@ -1,4 +1,4 @@
-import { SELECT_MESSAGE } from '../constants'
+import { SELECT_MESSAGE, SELECT_ALL_MESSAGES } from '../constants'
 
 function selectMessage(state = [], action) {
   /* eslint-disable */
@@ -8,6 +8,8 @@ function selectMessage(state = [], action) {
         return state.filter((id) => id !== action.payload)
       }
       return [ ...state, action.payload ]
+    case SELECT_ALL_MESSAGES:
+      return [ ...action.payload ]
     default:
   }
   /* eslint-enable */

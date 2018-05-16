@@ -1,4 +1,4 @@
-import { API_URL, SELECT_MESSAGE } from '../constants'
+import { API_URL, SELECT_MESSAGE, SELECT_ALL_MESSAGES } from '../constants'
 import getMessages from '../actions/actionGet'
 
 async function sendPatchCommand(reqBody) {
@@ -23,37 +23,22 @@ async function sendPatchCommand(reqBody) {
   return null
 }
 
-function constructBody(command) {
-  const reqBody = this.state.messages.reduce((acc, message) => {
-    if (message.selected) {
-      if (!acc.messageIds) {
-        acc.messageIds = [ message.id ]
-        acc.command = command
-      }
-      else {
-        acc.messageIds.push(message.id)
-      }
-    }
-    return acc
-  }, {})
-  return reqBody
-}
-
-function constructLabelBody(label, command) {
-  const reqBody = constructBody(command)
-  if (reqBody.command) {
-    reqBody.label = label
+function constructLabelBody(label, selected, command) {
+  const reqBody = {
+    command: command,
+    messageIds: [ ...selected ],
+    label: label
   }
   return reqBody
 }
 
-function applyLabel(label) {
-  const body = constructLabelBody(label, 'addLabel')
+function applyLabel(label, selected) {
+  const body = constructLabelBody(label, selected, 'addLabel')
   return sendPatchCommand(body)
 }
 
-function removeLabel(label) {
-  const body = constructLabelBody(label, 'removeLabel')
+function removeLabel(label, selected) {
+  const body = constructLabelBody(label, selected, 'removeLabel')
   return sendPatchCommand(body)
 }
 
@@ -67,11 +52,17 @@ function starMessage(message) {
 }
 
 function selectMessage(id) {
-  console.log('selectMessage', id)
   return {
     type: SELECT_MESSAGE,
     payload: id
   }
 }
+ function selectAllMessages(messages, selectedList) {
+   const all = messages.length === selectedList.length
+   return {
+     type: SELECT_ALL_MESSAGES,
+     payload: all ? [] : messages.map((message => message.id))
+   }
+ }
 
-export { applyLabel, removeLabel, starMessage, selectMessage }
+export { applyLabel, removeLabel, starMessage, selectMessage, selectAllMessages }

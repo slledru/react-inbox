@@ -6,6 +6,7 @@ const FETCH_MESSAGES = 'fetch_messages'
 const ADD_MESSAGE = 'add_message'
 const TOGGLE_FORM = 'toggle_form'
 const SELECT_MESSAGE = 'select_message'
+const SELECT_ALL_MESSAGES = 'select_all_messages'
 
 export {
   API_URL,
@@ -14,5 +15,6 @@ export {
   FETCH_MESSAGES,
   ADD_MESSAGE,
   TOGGLE_FORM,
-  SELECT_MESSAGE
+  SELECT_MESSAGE,
+  SELECT_ALL_MESSAGES
 }
