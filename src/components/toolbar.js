@@ -10,6 +10,7 @@ import {
   deleteMessages,
   clearSelection
 } from '../actions/actionPatch'
+import { openMessageForm } from '../actions/actionPost'
 
 const labelList = [ 'dev', 'personal', 'gschool']
 
@@ -47,7 +48,7 @@ class Toolbar extends Component {
 
   onNewMessage = (event) => {
     event.preventDefault()
-    this.props.toggleComposeForm(!this.props.toggleForm)
+    this.props.openMessageForm()
   }
 
   getMessageCount = () => {
@@ -142,6 +143,7 @@ function mapDispatchToProps(dispatch) {
   // Whenever getMessages is called, the result should be passed
   // to all of our reducers
   return bindActionCreators({
+    openMessageForm,
     applyLabel,
     removeLabel,
     selectAllMessages,

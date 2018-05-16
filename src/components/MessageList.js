@@ -23,7 +23,7 @@ class MessageList extends Component {
     return (
       <div className="row">
         <div className={ newMessageForm }>
-          <ComposeForm addMessage = { this.props.addMessage } />
+          <ComposeForm />
         </div>
         <div className="col-md-10">
           { this.props.messages.map(this.renderMessage) }

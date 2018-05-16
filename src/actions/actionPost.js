@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL, ADD_MESSAGE } from '../constants'
+import { API_URL, ADD_MESSAGE, OPEN_FORM } from '../constants'
 
 function addMessage(subject, body) {
   const request = axios.post(API_URL, { subject, body })
@@ -9,4 +9,10 @@ function addMessage(subject, body) {
   }
 }
 
-export default addMessage
+function openMessageForm() {
+  return {
+    type: OPEN_FORM
+  }
+}
+
+export { addMessage, openMessageForm }

@@ -5,7 +5,7 @@ import selectMessage from './reducerToolbar'
 
 const rootReducer = combineReducers({
   messages: getMessagesReducer,
-  addMessageReducer,
+  toggleForm: addMessageReducer,
   selectedList: selectMessage
 })
 

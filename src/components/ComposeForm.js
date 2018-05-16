@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import addMessage from '../actions/actionPost'
+import { addMessage } from '../actions/actionPost'
 import { bindActionCreators } from 'redux'
 
 class ComposeForm extends Component {

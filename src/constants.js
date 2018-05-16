@@ -4,7 +4,7 @@ const API_IGNORE = 'ignore'
 
 const FETCH_MESSAGES = 'fetch_messages'
 const ADD_MESSAGE = 'add_message'
-const TOGGLE_FORM = 'toggle_form'
+const OPEN_FORM = 'open_form'
 const SELECT_MESSAGE = 'select_message'
 const SELECT_ALL_MESSAGES = 'select_all_messages'
 const CLEAR_SELECTION = 'clear_selection'
@@ -15,7 +15,7 @@ export {
   API_IGNORE,
   FETCH_MESSAGES,
   ADD_MESSAGE,
-  TOGGLE_FORM,
+  OPEN_FORM,
   SELECT_MESSAGE,
   SELECT_ALL_MESSAGES,
   CLEAR_SELECTION
