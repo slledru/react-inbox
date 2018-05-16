@@ -36,7 +36,7 @@ class MessageList extends Component {
 function mapStateToProps(state) {
   // Whatever is returned will show up as props
   // inside of MessageList
-  console.log('MessageList:mapStateToProps - state: ', state)
+  // console.log('MessageList:mapStateToProps - state: ', state)
   return {
     messages: state.messages,
     toggleForm: state.toggleForm

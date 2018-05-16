@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addMessage } from '../actions/actionPost'
+import { addMessage, toggleMessageForm } from '../actions/actionPost'
 import { bindActionCreators } from 'redux'
 
 class ComposeForm extends Component {
@@ -11,6 +11,7 @@ class ComposeForm extends Component {
     if (subject && body) {
       this.props.addMessage(subject, body)
       event.target.reset()
+      this.props.toggleMessageForm()
     }
   }
 
@@ -45,7 +46,7 @@ class ComposeForm extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addMessage }, dispatch)
+  return bindActionCreators({ addMessage, toggleMessageForm }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(ComposeForm)

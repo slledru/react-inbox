@@ -1,8 +1,8 @@
-import { API_URL, SELECT_MESSAGE, SELECT_ALL_MESSAGES, CLEAR_SELECTION } from '../constants'
+import { API_URL, API_ERROR, SELECT_MESSAGE, SELECT_ALL_MESSAGES, CLEAR_SELECTION } from '../constants'
 import getMessages from '../actions/actionGet'
 
 async function sendPatchCommand(reqBody) {
-  console.log('sendPatchCommand:reqBody', reqBody)
+  // console.log('sendPatchCommand:reqBody', reqBody)
   if (reqBody.command) {
     const response = await fetch(API_URL, {
       method: 'PATCH',
@@ -16,10 +16,12 @@ async function sendPatchCommand(reqBody) {
       return getMessages()
     }
     else {
-      console.log('Something bad happened when adding part')
+      return {
+        type: API_ERROR,
+        payload: 'Something bad happened when adding part'
+      }
     }
   }
-  console.log('sendPatchCommand:exits')
   return null
 }
 
