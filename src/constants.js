@@ -7,6 +7,7 @@ const ADD_MESSAGE = 'add_message'
 const TOGGLE_FORM = 'toggle_form'
 const SELECT_MESSAGE = 'select_message'
 const SELECT_ALL_MESSAGES = 'select_all_messages'
+const CLEAR_SELECTION = 'clear_selection'
 
 export {
   API_URL,
@@ -16,5 +17,6 @@ export {
   ADD_MESSAGE,
   TOGGLE_FORM,
   SELECT_MESSAGE,
-  SELECT_ALL_MESSAGES
+  SELECT_ALL_MESSAGES,
+  CLEAR_SELECTION
 }

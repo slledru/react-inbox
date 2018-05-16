@@ -1,7 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { applyLabel, removeLabel, selectAllMessages } from '../actions/actionPatch'
+import {
+  applyLabel,
+  removeLabel,
+  selectAllMessages,
+  markAsRead,
+  markAsUnread,
+  deleteMessages,
+  clearSelection
+} from '../actions/actionPatch'
 
 const labelList = [ 'dev', 'personal', 'gschool']
 
@@ -23,7 +31,8 @@ class Toolbar extends Component {
 
   onMessageDelete = (event) => {
     event.preventDefault()
-    this.props.deleteMessage(this.props.selectedList)
+    this.props.deleteMessages(this.props.selectedList)
+    this.props.clearSelection()
   }
 
   onMarkMessageAsRead = (event) => {
@@ -132,7 +141,15 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   // Whenever getMessages is called, the result should be passed
   // to all of our reducers
-  return bindActionCreators({ applyLabel, removeLabel, selectAllMessages }, dispatch)
+  return bindActionCreators({
+    applyLabel,
+    removeLabel,
+    selectAllMessages,
+    markAsRead,
+    markAsUnread,
+    deleteMessages,
+    clearSelection
+  }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)

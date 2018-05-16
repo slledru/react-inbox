@@ -1,4 +1,4 @@
-import { API_URL, SELECT_MESSAGE, SELECT_ALL_MESSAGES } from '../constants'
+import { API_URL, SELECT_MESSAGE, SELECT_ALL_MESSAGES, CLEAR_SELECTION } from '../constants'
 import getMessages from '../actions/actionGet'
 
 async function sendPatchCommand(reqBody) {
@@ -23,12 +23,17 @@ async function sendPatchCommand(reqBody) {
   return null
 }
 
-function constructLabelBody(label, selected, command) {
+function constructBody(selected, command) {
   const reqBody = {
     command: command,
-    messageIds: [ ...selected ],
-    label: label
+    messageIds: [ ...selected ]
   }
+  return reqBody
+}
+
+function constructLabelBody(label, selected, command) {
+  const reqBody = constructBody(selected, command)
+  reqBody.label = label
   return reqBody
 }
 
@@ -57,12 +62,46 @@ function selectMessage(id) {
     payload: id
   }
 }
- function selectAllMessages(messages, selectedList) {
-   const all = messages.length === selectedList.length
-   return {
-     type: SELECT_ALL_MESSAGES,
-     payload: all ? [] : messages.map((message => message.id))
-   }
- }
 
-export { applyLabel, removeLabel, starMessage, selectMessage, selectAllMessages }
+function selectAllMessages(messages, selectedList) {
+  const all = messages.length === selectedList.length
+  return {
+    type: SELECT_ALL_MESSAGES,
+    payload: all ? [] : messages.map((message => message.id))
+  }
+}
+
+function clearSelection() {
+  return {
+    type: CLEAR_SELECTION
+  }
+}
+
+function markAsRead(selectedList) {
+  const body = constructBody(selectedList, 'read')
+  body.read = true
+  return sendPatchCommand(body)
+}
+
+function markAsUnread(selectedList) {
+  const body = constructBody(selectedList, 'read')
+  body.read = false
+  return sendPatchCommand(body)
+}
+
+function deleteMessages(selectedList) {
+  const body = constructBody(selectedList, 'delete')
+  return sendPatchCommand(body)
+}
+
+export {
+  applyLabel,
+  removeLabel,
+  starMessage,
+  selectMessage,
+  selectAllMessages,
+  markAsRead,
+  markAsUnread,
+  deleteMessages,
+  clearSelection
+}
