@@ -3,7 +3,6 @@ const API_ERROR = 'error'
 const API_IGNORE = 'ignore'
 
 const FETCH_MESSAGES = 'fetch_messages'
-const ADD_MESSAGE = 'add_message'
 const OPEN_FORM = 'open_form'
 const SELECT_MESSAGE = 'select_message'
 const SELECT_ALL_MESSAGES = 'select_all_messages'
@@ -14,7 +13,6 @@ export {
   API_ERROR,
   API_IGNORE,
   FETCH_MESSAGES,
-  ADD_MESSAGE,
   OPEN_FORM,
   SELECT_MESSAGE,
   SELECT_ALL_MESSAGES,
