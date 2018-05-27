@@ -52,12 +52,15 @@ class Toolbar extends Component {
   }
 
   getMessageCount = () => {
-    return this.props.messages ? this.props.messages.length : 0
+    return this.props.messages ? Object.keys(this.props.messages).length : 0
   }
 
   getUnreadMessageCount = () => {
-    return this.props.messages ?
-      this.props.messages.filter((message) => !message.read).length : 0
+    if (this.props.messages) {
+      const values = Object.values(this.props.messages)
+      return values.filter((value) => !value.read).length
+    }
+    return 0
   }
 
   getSelectedMessageCount = () => {

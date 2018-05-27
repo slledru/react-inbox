@@ -66,10 +66,10 @@ function selectMessage(id) {
 }
 
 function selectAllMessages(messages, selectedList) {
-  const all = messages.length === selectedList.length
+  const all = Object.keys(messages).length === selectedList.length
   return {
     type: SELECT_ALL_MESSAGES,
-    payload: all ? [] : messages.map((message => message.id))
+    payload: all ? [] : Object.values(messages).map((message => message.id))
   }
 }
 

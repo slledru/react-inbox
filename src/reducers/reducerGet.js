@@ -4,7 +4,11 @@ function getMessages(state = null, action) {
   /* eslint-disable */
   switch (action.type) {
     case FETCH_MESSAGES:
-      return [ ...action.payload.data._embedded.messages ]
+      const mappedKey = action.payload.data._embedded.messages.reduce((acc, msg) => {
+        acc[msg.id] = msg
+        return acc
+      }, {})
+      return mappedKey
     default:
   }
   /* eslint-enable */

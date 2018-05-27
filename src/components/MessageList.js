@@ -15,10 +15,10 @@ class MessageList extends Component {
   renderMessage = (message) => <Message key={ message.id } message={ message } />
 
   render = () => {
-    //console.log('MessageList:render', this.props.messages)
     if (!this.props.messages) {
       return <div>Loading...</div>
     }
+    // console.log('MessageList:render', Object.values(this.props.messages))
     const newMessageForm = `col-md-10 ${this.props.toggleForm ? 'show' : 'hide' }`
     return (
       <div className="row">
@@ -26,7 +26,7 @@ class MessageList extends Component {
           <ComposeForm />
         </div>
         <div className="col-md-10">
-          { this.props.messages.map(this.renderMessage) }
+          { Object.values(this.props.messages).map(this.renderMessage) }
         </div>
       </div>
     )
