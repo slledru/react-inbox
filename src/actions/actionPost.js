@@ -1,4 +1,4 @@
-import { API_URL, API_ERROR, OPEN_FORM } from '../constants'
+import { API_URL, API_ERROR } from '../constants'
 import getMessages from '../actions/actionGet'
 
 async function sendPostCommand(body) {
@@ -25,10 +25,4 @@ function addMessage(subject, body) {
   return sendPostCommand({ subject, body })
 }
 
-function toggleMessageForm() {
-  return {
-    type: OPEN_FORM
-  }
-}
-
-export { addMessage, toggleMessageForm }
+export { addMessage }

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import './inbox.css'
-import ComposeForm from './ComposeForm'
 import Message from './Message'
 import getMessages from '../actions/actionGet'
 import { starMessage, selectMessage } from '../actions/actionPatch'
@@ -20,12 +19,8 @@ class MessageList extends Component {
       return <div>Loading...</div>
     }
     // console.log('MessageList:render', Object.values(this.props.messages))
-    const newMessageForm = `col-md-10 ${this.props.toggleForm ? 'show' : 'hide' }`
     return (
       <div className="row">
-        <div className={ newMessageForm }>
-          <ComposeForm />
-        </div>
         <div className="col-md-10">
           { Object.values(this.props.messages).map(this.renderMessage) }
         </div>
@@ -39,8 +34,7 @@ function mapStateToProps(state) {
   // inside of MessageList
   // console.log('MessageList:mapStateToProps - state: ', state)
   return {
-    messages: state.messages,
-    toggleForm: state.toggleForm
+    messages: state.messages
   }
 }
 
