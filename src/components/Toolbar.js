@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Link } from 'react-router-dom'
+
 import {
   applyLabel,
   removeLabel,
@@ -15,6 +17,12 @@ import { toggleMessageForm } from '../actions/actionPost'
 const labelList = [ 'dev', 'personal', 'gschool']
 
 class Toolbar extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      toggle: false
+    }
+  }
   onApplyLabel = (event) => {
     event.preventDefault()
     this.props.applyLabel(event.target.value, this.props.selectedList)
@@ -44,11 +52,6 @@ class Toolbar extends Component {
   onMarkMessageAsUnread = (event) => {
     event.preventDefault()
     this.props.markAsUnread(this.props.selectedList)
-  }
-
-  onNewMessage = (event) => {
-    event.preventDefault()
-    this.props.toggleMessageForm()
   }
 
   getMessageCount = () => {
@@ -86,6 +89,21 @@ class Toolbar extends Component {
     )
   }
 
+  renderLink() {
+    if (this.props.toggle) {
+      return (
+        <Link className="btn btn-danger" to="/compose" >
+          <i className="fa fa-plus"></i>
+        </Link>
+      )
+    }
+    return (
+      <Link className="btn btn-danger" to="/" >
+        <i className="fa fa-plus"></i>
+      </Link>
+    )
+  }
+
   render() {
     const disabledAttribute = (this.getMessageCount() <= 0)
     return (
@@ -96,9 +114,7 @@ class Toolbar extends Component {
             { this.getUnreadMessageCount() === 1 ? 'unread message' : 'unread messages' }
           </p>
 
-          <a className="btn btn-danger" onClick={ this.onNewMessage }>
-            <i className="fa fa-plus"></i>
-          </a>
+          { this.renderLink() }
 
           <button className="btn btn-default" onClick={ this.onMessageSelected } disabled={ disabledAttribute }>
             { this.getSelectImage() }
@@ -156,5 +172,11 @@ function mapDispatchToProps(dispatch) {
     clearSelection
   }, dispatch)
 }
+
+/*
+<Link className="btn btn-danger" to="/" >
+  <i className="fa fa-plus"></i>
+</Link>
+*/
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)
