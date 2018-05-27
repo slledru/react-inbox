@@ -18,7 +18,6 @@ class Message extends Component {
   }
 
   onMessageClick = (message) => (event) => {
-    // event.preventDefault()
     this.props.getMessage(message)
   }
 
@@ -33,11 +32,6 @@ class Message extends Component {
       if (message.body) {
         return (
           <div className="message-body">{ message.body }</div>
-        )
-      }
-      else {
-        return (
-          <div className="message-body">Loading...</div>
         )
       }
     }
