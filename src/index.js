@@ -11,7 +11,6 @@ import 'font-awesome/css/font-awesome.css'
 import './index.css'
 
 import App from './components/App'
-import NewMessage from './components/AppWithNewMessage'
 import registerServiceWorker from './registerServiceWorker'
 
 import reducers from './reducers'
@@ -23,8 +22,24 @@ ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
       <BrowserRouter>
         <div>
-          <Route exact={ true } path="/" component={ App }/>
-          <Route path="/compose" component={ NewMessage }/>
+          <Route exact={ true } path="/"
+            render={ ({ history }) => {
+              return (
+                <App toggle={ true } messageSelected={ false } history={ history }/>
+              )
+            }}/>
+          <Route exact={ true } path="/compose"
+              render={ ({ history }) => {
+                return (
+                  <App toggle={ false } messageSelected={ false } history={ history }/>
+                )
+              }}/>
+          <Route exact={ true } path="/messages/:id"
+              render={ ({ history }) => {
+                return (
+                  <App toggle={ true } messageSelected={ true } history={ history }/>
+                )
+              }}/>
         </div>
       </BrowserRouter>
     </Provider>

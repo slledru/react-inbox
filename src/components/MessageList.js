@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import './inbox.css'
 import Message from './Message'
+import ComposeForm from './ComposeForm'
 import getMessages from '../actions/actionGet'
 import { starMessage, selectMessage } from '../actions/actionPatch'
 
@@ -14,6 +15,17 @@ class MessageList extends Component {
 
   renderMessage = (message) => <Message key={ message.id } message={ message } />
 
+  renderComposeForm() {
+    if (!this.props.toggle) {
+      return (
+        <div className="col-md-10">
+          <ComposeForm />
+        </div>
+      )
+    }
+    return null
+  }
+
   render = () => {
     if (!this.props.messages) {
       return <div>Loading...</div>
@@ -21,6 +33,7 @@ class MessageList extends Component {
     // console.log('MessageList:render', Object.values(this.props.messages))
     return (
       <div className="row">
+        { this.renderComposeForm() }
         <div className="col-md-10">
           { Object.values(this.props.messages).map(this.renderMessage) }
         </div>

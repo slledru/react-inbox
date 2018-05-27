@@ -7,8 +7,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Toolbar toggle={ true }/>
-        <MessageList />
+        <Toolbar toggle={ this.props.toggle }/>
+        <MessageList toggle={ this.props.toggle }/>
       </div>
     )
   }
