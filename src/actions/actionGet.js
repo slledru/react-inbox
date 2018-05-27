@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL, FETCH_MESSAGES } from '../constants'
+import { API_URL, FETCH_MESSAGES, FETCH_MESSAGE } from '../constants'
 
 function getMessages() {
   return {
@@ -8,4 +8,14 @@ function getMessages() {
   }
 }
 
-export default getMessages
+function getMessage(message) {
+  return {
+    type: FETCH_MESSAGE,
+    payload: axios.get(`${API_URL}/${message.id}`)
+  }
+}
+
+export {
+  getMessages,
+  getMessage
+}

@@ -23,21 +23,21 @@ ReactDOM.render(
       <BrowserRouter>
         <div>
           <Route exact={ true } path="/"
-            render={ ({ history }) => {
+            render={ () => {
               return (
-                <App toggle={ true } messageSelected={ false } history={ history }/>
+                <App toggle={ true } />
               )
             }}/>
           <Route exact={ true } path="/compose"
-              render={ ({ history }) => {
+              render={ () => {
                 return (
-                  <App toggle={ false } messageSelected={ false } history={ history }/>
+                  <App toggle={ false } />
                 )
               }}/>
           <Route exact={ true } path="/messages/:id"
-              render={ ({ history }) => {
+              render={ ( { history, match } ) => {
                 return (
-                  <App toggle={ true } messageSelected={ true } history={ history }/>
+                  <App toggle={ true } selectedId={ match.params.id } />
                 )
               }}/>
         </div>

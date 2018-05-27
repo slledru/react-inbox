@@ -1,5 +1,5 @@
 import { API_URL, API_ERROR } from '../constants'
-import getMessages from '../actions/actionGet'
+import { getMessages } from '../actions/actionGet'
 
 async function sendPostCommand(body) {
   const response = await fetch(API_URL, {

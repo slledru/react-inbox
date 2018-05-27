@@ -3,15 +3,13 @@ import Toolbar from './Toolbar'
 import MessageList from './MessageList'
 import './App.css'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Toolbar toggle={ this.props.toggle }/>
-        <MessageList toggle={ this.props.toggle }/>
-      </div>
-    )
-  }
+const App = (props) => {
+  return (
+    <div className="App">
+      <Toolbar toggle={ props.toggle }/>
+      <MessageList toggle={ props.toggle } selectedId={ props.selectedId }/>
+    </div>
+  )
 }
 
 export default App

@@ -1,5 +1,5 @@
 import { API_URL, API_ERROR, SELECT_MESSAGE, SELECT_ALL_MESSAGES, CLEAR_SELECTION } from '../constants'
-import getMessages from '../actions/actionGet'
+import { getMessages } from '../actions/actionGet'
 
 async function sendPatchCommand(reqBody) {
   // console.log('sendPatchCommand:reqBody', reqBody)

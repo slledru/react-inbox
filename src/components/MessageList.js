@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import './inbox.css'
 import Message from './Message'
 import ComposeForm from './ComposeForm'
-import getMessages from '../actions/actionGet'
+import { getMessages } from '../actions/actionGet'
 import { starMessage, selectMessage } from '../actions/actionPatch'
 
 class MessageList extends Component {
@@ -13,7 +13,7 @@ class MessageList extends Component {
     this.props.getMessages()
   }
 
-  renderMessage = (message) => <Message key={ message.id } message={ message } />
+  renderMessage = (message) => <Message key={ message.id } message={ message }  selectedId={ this.props.selectedId }/>
 
   renderComposeForm() {
     if (!this.props.toggle) {

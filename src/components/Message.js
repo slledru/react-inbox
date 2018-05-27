@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Link } from 'react-router-dom'
 import { starMessage, selectMessage } from '../actions/actionPatch'
+import { getMessage } from '../actions/actionGet'
+import { markAsRead } from '../actions/actionPatch'
 
 class Message extends Component {
   onSelectedChanged = (id) => (event) => {
@@ -14,10 +17,31 @@ class Message extends Component {
     this.props.starMessage(message)
   }
 
+  onMessageClick = (message) => (event) => {
+    // event.preventDefault()
+    this.props.getMessage(message)
+  }
+
   renderLabel = (message) => {
     return message.labels.map((label) => {
       return <span key={ label } className="label label-warning">{ label }</span>
     })
+  }
+
+  renderMessageBody = (message) => {
+    if (message.id == this.props.selectedId) {
+      if (message.body) {
+        return (
+          <div className="message-body">{ message.body }</div>
+        )
+      }
+      else {
+        return (
+          <div className="message-body">Loading...</div>
+        )
+      }
+    }
+    return null
   }
 
   render() {
@@ -51,9 +75,10 @@ class Message extends Component {
         </div>
         <div className="col-xs-11 text-left">
           { this.renderLabel(message) }
-          <a >
+          <Link to={`/messages/${message.id}`} onClick={ this.onMessageClick(message) }>
             {message.subject}
-          </a>
+          </Link>
+          { this.renderMessageBody(message) }
         </div>
       </div>
     )
@@ -72,7 +97,7 @@ function mapStateToProps(state) {
 // Anything returned from this function will end up as props
 // on the Message container
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ starMessage, selectMessage }, dispatch)
+  return bindActionCreators({ starMessage, selectMessage, getMessage, markAsRead }, dispatch)
 }
 
 // Promote Message from component to container - it needs to know
