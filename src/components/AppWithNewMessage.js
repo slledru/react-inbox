@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import Toolbar from './Toolbar'
-import MessageList from './ComposeForm'
+import ComposeForm from './ComposeForm'
 import MessageList from './MessageList'
 import './App.css'
 
 class AppWithNewMessage extends Component {
   render() {
-    const newMessageForm = `col-md-10 ${this.props.toggleForm ? 'show' : 'hide' }`
     return (
       <div className="App">
-        <Toolbar />
+        <Toolbar toggle={ false }/>
         <div className="">
-          <div className={ newMessageForm }>
+          <div className="col-md-10">
             <ComposeForm />
           </div>
         </div>
