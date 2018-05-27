@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import './inbox.css'
 import ComposeForm from './ComposeForm'
 import Message from './Message'
 import getMessages from '../actions/actionGet'

@@ -8,10 +8,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
 import 'font-awesome/css/font-awesome.css'
 import './index.css'
-import './App.css'
-import './inbox.css'
 
-import App from './App'
+import App from './components/App'
 import registerServiceWorker from './registerServiceWorker'
 
 import reducers from './reducers'
