@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Toolbar from './Toolbar'
 import MessageList from './MessageList'
 import './App.css'
