@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Toolbar />
+        <Toolbar toggle={ true }/>
         <MessageList />
       </div>
     )
