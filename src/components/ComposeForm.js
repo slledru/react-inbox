@@ -16,14 +16,6 @@ class ComposeForm extends Component {
     history.push('/')
   }
 
-/*
-<button
-type='button'
-onClick={() => { history.push('/new-location') }}
->
-Click Me!
-</button>
-*/
   render() {
     return (
       <Route render={({ history }) => (
